@@ -1,0 +1,364 @@
+/* Import font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.wrapper {
+    display: flex;
+    min-height: 110vh;
+    z-index: 1;
+}
+
+.wrapper::before {
+    
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #E9F1FA;
+    z-index: -1;
+}
+
+/* Body styles */
+body {
+    background: url("/static/images/user/cover.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+.nav{
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 100px;
+    line-height: 100px;
+    background: #00ABE4;
+    z-index: 100;
+}
+.nav-logo p {
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.nav-menu ul {
+    display: flex;
+}
+
+.nav-menu ul li {
+    list-style-type: none;
+    margin-right: 25px;
+}
+
+.nav-menu ul li .link {
+    text-decoration: none;
+    font-weight: 500;
+    color: #ffffff;
+    padding-bottom: 15px;
+}
+
+.link:hover,
+.active {
+    border-bottom: 2px solid #ffffff;
+}
+
+.nav-button .btn {
+    width: 130px;
+    height: 40px;
+    font-weight: 500;
+    background: #a0dff4;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.nav-button .custom-text-color {
+    color: white !important;
+}
+
+.btn:hover {
+    background: #00bfea;
+}
+
+#registerBtn {
+    margin-left: 15px;
+}
+
+.btn.white-btn {
+    background: #c8edfa;
+}
+
+.btn.btn.white-btn:hover {
+    background: #ffffff;
+}
+
+.nav-menu-btn {
+    display: none;
+}
+
+/* Main pages styles */
+.main-pages {
+    margin-top: 100px;
+    padding: 20px;
+    width: 100%; /* Set width to 100% */
+    position: relative; /* Added */
+    z-index: 1; /* Added */
+}
+
+.form-box {
+    margin: 1em auto; /* Atur margin atas dan bawah ke 1em, dan margin kiri-kanan menjadi auto */
+    margin-top: 100px;
+    padding: 20px;
+    width: 80%; /* Ubah lebar menjadi 80% dari lebar viewport */
+    position: relative;
+    z-index: 1;
+}
+
+
+.top h3 {
+    margin-top: 20px;
+}
+
+.top h2 {
+    margin-bottom: 40px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #00ABE4;
+}
+
+th {
+    background-color: #00ABE4;
+    color: white;
+}
+
+.form-box{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 512px;
+    height: 420px;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.index-container{
+    position: absolute;
+    left: 4px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    transition: .5s ease-in-out;
+}
+.login-container{
+    position: absolute;
+    left: 4px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    transition: .5s ease-in-out;
+}
+.index-container .top header{
+    color: #000000;
+    font-size: 30px;
+    text-align: center;
+    padding: 5px 0 10px 0;
+}
+.index-container .top h3{
+    color: #000000;
+    text-align: center;
+}
+
+.index-container .top h4{
+    color: #000000;
+    margin-bottom: 10px;
+    text-align: justify;
+}
+.register-container{
+    position: absolute;
+    right: -520px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    transition: .5s ease-in-out;
+}
+
+.top span{
+    color: #000000;
+    font-size: small;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+.top span a{
+    font-weight: 500;
+    color: #000000;
+    margin-left: 5px;
+}
+header{
+    color: #000000;
+    font-size: 30px;
+    text-align: center;
+    padding: 10px 0 30px 0;
+}
+.two-forms{
+    display: flex;
+    gap: 10px;
+}
+
+.input-field{
+    font-size: 15px;
+    background: #98e0f8;
+    color: #ffffff;
+    height: 50px;
+    width: 100%;
+    padding: 0 10px 0 45px;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    transition: .2s ease;
+}
+.input-field:hover, .input-field:focus{
+    background: #00ABE4;
+}
+::-webkit-input-placeholder{
+    color: #000000;
+}
+.input-box i{
+    position: relative;
+    top: -35px;
+    left: 17px;
+    color: #000000;
+}
+.submit{
+    font-size: 15px;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+    height: 45px;
+    width: 100%;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    background: #00ABE4;
+    cursor: pointer;
+    transition: .3s ease-in-out;
+}
+.submit:hover{
+    background: #00c6f2;
+    box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
+}
+.two-col{
+    display: flex;
+    justify-content: space-between;
+    color: #000000;
+    font-size: small;
+    margin-top: 10px;
+}
+.two-col .one{
+    display: flex;
+    gap: 5px;
+}
+.two label a{
+    text-decoration: none;
+    color: #000000;
+}
+.two label a:hover{
+    text-decoration: underline;
+}
+@media only screen and (max-width: 786px) {
+    .nav-button {
+        display: none;
+    }
+
+    .nav-menu.responsive {
+        top: 100px;
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: -800px; /* Ganti nilai ini dengan yang lebih cocok */
+        display: flex;
+        justify-content: center;
+        background: #00ABE4;
+        width: 100%;
+        height: 90vh;
+        backdrop-filter: blur(20px);
+        transition: .3s;
+    }
+
+    .nav-menu ul {
+        flex-direction: column; /* Ubah ke flex-direction column untuk menu vertikal */
+        text-align: center;
+        padding: 20px 0; /* Atur padding agar terlihat lebih baik */
+    }
+
+    .nav-menu ul li {
+        margin: 10px 0; /* Atur margin agar item menu tidak terlalu dekat */
+    }
+
+    .nav-menu-btn {
+        display: block;
+    }
+
+    .nav-menu-btn i {
+        font-size: 25px;
+        color: #000000;
+        padding: 10px;
+        background: #00ABE4;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: .3s;
+    }
+
+    .nav-menu-btn i:hover {
+        background: #00ABE4;
+    }
+
+    .wrapper {
+        min-height: 100vh;
+    }
+
+    .form-box {
+        width: 100%;
+        height: auto; /* Ubah tinggi agar disesuaikan dengan konten */
+    }
+
+    .register-container,
+    .login-container {
+        width: calc(100% - 20px); /* Sesuaikan lebar agar tidak melebihi layar */
+        padding: 0 10px; /* Atur padding agar lebih sesuai dengan layar kecil */
+    }
+
+    .register-container .two-forms {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .index-container,
+    .login-container,
+    .register-container {
+        width: calc(100% - 20px); /* Menghitung lebar agar tidak melebihi lebar layar */
+        margin: 0 auto; /* Pusatkan konten pada layar kecil */
+    }
+}

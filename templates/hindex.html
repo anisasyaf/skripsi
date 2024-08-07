@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Beranda</title>
+</head>
+<body>
+ <div class="wrapper">
+    <nav class="nav">
+        <div class="nav-logo">
+            <p>phiON</p>
+        </div>
+        <div class="nav-menu" id="navMenu">
+            <ul>
+                <li><a href="{{ url_for('home') }}" class="link">Beranda</a></li>
+                <li><a href="{{ url_for('hdata') }}" class="link">Data Phishing</a></li>
+                <li><a href="{{ url_for('uhalaman') }}" class="link">Laporkan Situs</a></li>
+                <li><a href="{{ url_for('htentang') }}" class="link">Tentang</a></li>
+            </ul>
+        </div>
+        <div class="nav-button">
+            {% if 'is_logged_in' in session %}
+                <ul><a href="{{ url_for('uhalaman') }}" class="custom-text-color">{{ session['username'] }}</a></ul>
+            {% else %}
+                <ul><a href="{{ url_for('hlogin') }}" class="custom-text-color">Akun Saya</a></ul>
+            {% endif %}
+        </div>
+    </nav>  
+    <div class="form-box">
+        <div class="index-container" id="index">
+            <div class="top">
+                <header>Website Deteksi Situs Phishing</header>
+                <h3>Periksa Situs Phishing</h3>
+            <form action="/predict" method="POST">
+                <div class="input-box"  style="margin-bottom: 1rem;">
+                    <input type="text" class="input-field" name="url" id="urlInput" placeholder="Masukkan URL">
+                </div>
+                <div class="input-box">
+                    <input type="submit" class="submit" value="Cek Situs">
+                    <div class="flash-messages">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                <ul style="list-style-type: none; padding: 0; text-align: center;">
+                                    {% for category, message in messages %}
+                                        <li class="{{ category }}" style="background-color: #ffdddd; color: #d8000c; border: 1px solid #d8000c; padding: 10px; margin: 5px 0; display: inline-block;">
+                                            {{ message }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    {% if result %}
+                    <h3 style="text-align:center;">Situs: {{ url }} </h3>
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <h3 style="text-align: center; background-color: #E9F1FA; color: #00ABE4; border: 1px solid #00c6f2; padding: 10px; margin: 5px 0; display: inline-block;">
+                            Terindikasi sebagai: situs {{ result }}
+                        </h3>
+                    </div>
+                    {% endif %}
+                </div>
+                {% if 'is_logged_in' not in session %}
+                <div class="two-col">
+                    <div class="two">
+                        <label><a href="{{ url_for('hlogin') }}">Menemukan situs phishing? Klik disini untuk laporkan situs sekarang juga!</a></label>
+                    </div>
+                </div>
+                {% endif %}
+            </form>
+            </div>
+        </div>
+
+</body>
+</html>

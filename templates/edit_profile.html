@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/app/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/icons/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/index.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <nav class="navbar navbar-expand-md navbar-light bg-light py-1">
+            <div class="container-fluid">
+                <ul class="nav ms-auto">
+                    <li class="nav-item dropstart">
+                        <a class="nav-link text-dark ps-3 pe-1" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown">
+                            <img src="{{ url_for('static', filename='images/user/user.png') }}" alt="user" class="img-user">
+                        </a>
+                        <div class="dropdown-menu mt-2 pt-0" aria-labelledby="navbarDropdown">
+                            <div class="d-flex p-3 border-bottom mb-2">
+                                <img src="{{ url_for('static', filename='images/user/user.png') }}" alt="user" class="img-user me-2">
+                                <div class="d-block">
+                                    <p class="fw-bold m-0 lh-1">{{ session['username'] }}</p>
+                                    <small>{{ session['email'] }}</small>
+                                </div>
+                            </div>
+                            <a class="dropdown-item" href="{{ url_for('edit_profile') }}">
+                                <i class="fa fa-user fa-lg me-3" aria-hidden="true"></i>Profil
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a class="dropdown-item" href="{% if 'is_logged_in' in session %}{{ url_for('logout') }}{% else %}{{ url_for('hlogin') }}{% endif %}">
+                                <i class="fa fa-sign-out fa-lg me-2" aria-hidden="true"></i>Keluar
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="slider" id="sliders">
+            <div class="slider-head text-center">
+                <a class="nav px-3 text-white" href="{{ url_for('home') }}" style="text-decoration: none;">
+                    <span style="text-decoration: none; font-size: 22px;">phiON</span>
+                </a>
+                <div class="d-block pt-2 pb-1 px-3">
+                    <img src="{{ url_for('static', filename='images/user/user.png') }}" alt="user" class="slider-img-user mb-2">
+                    <p class="fw-bold mb-0 lh-1 text-white">{{ session['username'] }}</p>
+                    <small class="text-white">{{ session['email'] }}</small>
+                </div>
+            </div>            
+            <div class="slider-body px-1">
+                <nav class="nav flex-column">
+                    <a class="nav-link px-3 active" href="{{ url_for('uhalaman') }}">
+                        <i class="fa fa-home fa-lg box-icon" aria-hidden="true"></i>Laporkan Situs
+                    </a>
+                    <hr class="soft my-1 bg-white">
+                    <a class="nav-link px-3" href="{{ url_for('ureport') }}">
+                        <i class="fa fa-dropbox fa-lg box-icon" aria-hidden="true"></i>Data Report
+                    </a>
+                    <hr class="soft my-1 bg-white">
+                    <a class="nav-link px-3" href="{% if 'is_logged_in' in session %}{{ url_for('logout') }}{% else %}{{ url_for('hlogin') }}{% endif %}">
+                        <i class="fa fa-sign-out fa-lg box-icon" aria-hidden="true"></i>Keluar 
+                    </a>                                       
+                </nav>
+            </div>
+        </div>
+
+        <div class="main-pages">
+            <div class="container-fluid">
+                <div class="row g-2 mb-3">
+                    <div class="col-12">
+                        <div class="d-block bg-white rounded shadow p-3">
+                            <h2>Edit Profil</h2>
+                            <form method="POST" action="{{ url_for('edit_profile') }}">
+                                <div class="mb-3">
+                                    <label for="namalengkap" class="form-label">Nama Lengkap</label>
+                                    <input type="text" class="form-control" id="namalengkap" name="namalengkap" value="{{ session['namalengkap'] }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="username" name="username" value="{{ session['username'] }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password Baru</label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </form>
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+
+    <div class="slider-background" id="sliders-background"></div>
+    <script src="{{ url_for('static', filename='dist/js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/app/js/bootstrap.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <script src="{{ url_for('static', filename='dist/js/index.js') }}"></script>
+</body>
+
+</html>

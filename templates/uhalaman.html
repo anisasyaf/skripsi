@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporkan Situs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/app/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/icons/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/index.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <nav class="navbar navbar-expand-md navbar-light bg-light py-1">
+            <div class="container-fluid">
+                <ul class="nav ms-auto">
+                    <li class="nav-item dropstart">
+                        <a class="nav-link text-dark ps-3 pe-1" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown">
+                            <img src="{{ url_for('static', filename='images/user/user.png') }}" alt="user" class="img-user">
+                        </a>
+                        <div class="dropdown-menu mt-2 pt-0" aria-labelledby="navbarDropdown">
+                            <div class="d-flex p-3 border-bottom mb-2">
+                                <img src="{{ url_for('static', filename='images/user/user.png') }}" alt="user" class="img-user me-2">
+                                <div class="d-block">
+                                    <p class="fw-bold m-0 lh-1">{{ session['username'] }}</p>
+                                    <small>{{ session['email'] }}</small>
+                                </div>
+                            </div>
+                            <a class="dropdown-item" href="{{ url_for('edit_profile') }}">
+                                <i class="fa fa-user fa-lg me-3" aria-hidden="true"></i>Profil
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a class="dropdown-item" href="{% if 'is_logged_in' in session %}{{ url_for('logout') }}{% else %}{{ url_for('hlogin') }}{% endif %}">
+                                <i class="fa fa-sign-out fa-lg me-2" aria-hidden="true"></i>Keluar
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="slider" id="sliders">
+            <div class="slider-head text-center">
+                <a class="nav px-3 text-white" href="{{ url_for('home') }}" style="text-decoration: none;">
+                    <span style="text-decoration: none; font-size: 22px;">phiON</span>
+                </a>
+                <div class="d-block pt-2 pb-1 px-3">
+                    <img src="{{ url_for('static', filename='images/user/user.png') }}" alt="user" class="slider-img-user mb-2">
+                    <p class="fw-bold mb-0 lh-1 text-white">{{ session['username'] }}</p>
+                    <small class="text-white">{{ session['email'] }}</small>
+                </div>
+            </div>            
+            <div class="slider-body px-1">
+                <nav class="nav flex-column">
+                    <a class="nav-link px-3 active" href="{{ url_for('uhalaman') }}">
+                        <i class="fa fa-home fa-lg box-icon" aria-hidden="true"></i>Laporkan Situs
+                    </a>
+                    <hr class="soft my-1 bg-white">
+                    <a class="nav-link px-3" href="{{ url_for('ureport') }}">
+                        <i class="fa fa-dropbox fa-lg box-icon" aria-hidden="true"></i>Data Laporan
+                    </a>
+                    <hr class="soft my-1 bg-white">
+                    <a class="nav-link px-3" href="{% if 'is_logged_in' in session %}{{ url_for('logout') }}{% else %}{{ url_for('hlogin') }}{% endif %}">
+                        <i class="fa fa-sign-out fa-lg box-icon" aria-hidden="true"></i>Keluar 
+                    </a>                                       
+                </nav>
+            </div>
+        </div>
+
+        <div class="main-pages">
+            <div class="container-fluid">
+                <div class="row g-2 mb-3">
+                    <div class="col-12">
+                        <div class="d-block bg-white rounded shadow p-3">
+                            <h2>Laporkan Situs</h2>
+                            <form action="{{ url_for('report') }}" method="POST">
+                                <div class="mb-3">
+                                    <input type="url" class="form-control" name="url" id="urlInput" placeholder="Enter URL">
+                                </div>
+                                <button type="submit" class="btn btn-secondary" style="background-color: #00ABE4;">Report</button>
+                                {% with messages = get_flashed_messages(with_categories=true) %}
+                                    {% if messages %}
+                                        {% for category, message in messages %}
+                                            <div class="alert alert-{{ category }}">
+                                                {{ message }}
+                                            </div>
+                                        {% endfor %}
+                                        {% for category, message in messages %}
+                                            {% if category == 'success' %}
+                                                <script type="text/javascript">
+                                                    setTimeout(function() {
+                                                        window.location.href = "{{ url_for('ureport') }}";
+                                                    }, 3000); // 5 detik
+                                                </script>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endwith %}
+                            </form>                            
+                        </div>
+                    </div>
+                </div>                
+
+                <div class="row g-3 mb-3">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 report-card" onclick="redirectToReport()">
+                        <div class="card p-2 shadow">
+                            <div class="d-flex align-items-center px-2">
+                                <i class="fa fa-check-square-o fa-3x py-auto" aria-hidden="true"></i>
+                                <div class="card-body text-end">
+                                    <h5 class="card-title">{{ user_report_count }}</h5>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <small class="text-start fw-bold">Report Anda</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 total-url-card" onclick="redirectToHdata()">
+                        <div class="card p-2 shadow">
+                            <div class="d-flex align-items-center px-2">
+                                <i class="fa fa-line-chart fa-3x py-auto" aria-hidden="true"></i>
+                                <div class="card-body text-end">
+                                    <h5 class="card-title">{{ total_url_count }}</h5>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <small class="text-start fw-bold">Total URL Phishing</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="slider-background" id="sliders-background"></div>
+    <script src="{{ url_for('static', filename='dist/js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/app/js/bootstrap.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+
+
+    <script src="{{ url_for('static', filename='dist/js/index.js') }}"></script>
+    <script>
+        function redirectToReport() {
+            window.location.href = "{{ url_for('ureport') }}";
+        }
+        
+        function redirectToHdata() {
+    window.location.href = "{{ url_for('hdata') }}";
+}
+        </script>
+        
+
+</body>
+
+</html>
